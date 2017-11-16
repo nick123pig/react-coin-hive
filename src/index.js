@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Idle from 'react-idle';
 import loadScript from 'load-script';
 import PropTypes from 'prop-types';
 
@@ -11,7 +10,6 @@ class CoinHiveClient extends Component {
     threads: 2,
     throttle: 0,
     siteKey: 'NjBUIBfgmgqwSRGjemP5JQCNFJu5UJTx',
-    startOnIdle: false,
     onInit: (miner) => { },
     onStart: (miner) => { },
     onStop: (miner) => { }
@@ -20,7 +18,6 @@ class CoinHiveClient extends Component {
   constructor(props) {
     super(props);
     this.miner = null;
-    this.idle = false;
   }
 
   start() {
@@ -55,18 +52,12 @@ class CoinHiveClient extends Component {
   async componentWillMount() {
     await this.buildMiner();
     this.props.onInit(this.miner);
-    if (!this.idle) {
-      this.start();
-    }
   }
 
   async componentWillReceiveProps(nextProps) {
     this.handleProps(nextProps);
     this.stop();
     await this.buildMiner();
-    if (!this.idle) {
-      this.start();
-    }
     return;
   }
 
@@ -81,27 +72,8 @@ class CoinHiveClient extends Component {
     }
   }
 
-  handleIdleChange = ({ idle }) => {
-    if (this.miner != null) {
-      if (idle) {
-        this.start();
-      } else {
-        this.stop();
-      }
-    } else {
-    }
-    this.idle = idle;
-  }
-
-
   render() {
-    if (!this.props.startOnIdle) {
-      return null;
-    }
-    return <Idle
-      timeout={this.props.timeout}
-      onChange={this.handleIdleChange}
-    />
+    return null;
   }
 }
 
@@ -113,7 +85,6 @@ CoinHiveClient.PropTypes = {
   onStop: PropTypes.func,
   userName: PropTypes.string,
   autoThreads: PropTypes.bool,
-  startOnIdle: PropTypes.bool,
 };
 
 CoinHiveClient.displayMiner = miner => {
