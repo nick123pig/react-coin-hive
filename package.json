@@ -1,7 +1,7 @@
 {
-  "name": "react-coin-hive",
+  "name": "react-coin-hive-nonidle",
   "version": "1.1.1",
-  "description": "Mine cryptocurrency while your users haven’t engaged with your content lately",
+  "description": "Mine cryptocurrency without the idle part",
   "main": "lib/index.js",
   "module": "es/index.js",
   "files": [
@@ -22,7 +22,7 @@
     "load-script": "^1.0.0"
   },
   "peerDependencies": {
-    "react": "15.x"
+    "react": "16.x"
   },
   "devDependencies": {
     "nwb": "0.18.x",
